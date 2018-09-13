@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import static org.usfirst.util.Config.*;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -30,6 +32,10 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        cleanAllPreferences();
+        loadConfiguration("config.properties");
+        printPreferences(System.out);;
+        
         chassis = new Chassis();
         oi = new OI();
         chooser.addDefault("AutonomousCommand", new AutonomousCommand());

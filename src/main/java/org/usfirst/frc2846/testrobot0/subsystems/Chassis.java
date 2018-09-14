@@ -4,21 +4,23 @@ import org.usfirst.frc2846.testrobot0.commands.ChassisDriveCommand;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
- *
+ * Subsystem that contains the drive wheels for the robot.
  */
 public class Chassis extends Subsystem {
 
-    private WPI_TalonSRX rightMotor;
     private WPI_TalonSRX leftMotor;
+    private WPI_TalonSRX rightMotor;
     private DifferentialDrive robotDrive;
 
     public Chassis() {
-        rightMotor = new WPI_TalonSRX(3);
-        leftMotor = new WPI_TalonSRX(2);
+        Preferences config = Preferences.getInstance();
+        leftMotor = new WPI_TalonSRX(config.getInt("chassis.leftMotor.canID", 2));
+        rightMotor = new WPI_TalonSRX(config.getInt("chassis.rightMotor.canID", 3));
 
         robotDrive = new DifferentialDrive(leftMotor, rightMotor);
         addChild(robotDrive);
